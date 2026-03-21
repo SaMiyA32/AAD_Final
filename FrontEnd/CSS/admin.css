@@ -1,0 +1,87 @@
+/* Admin specific CSS */
+/* Admin Panel specific CSS */
+.admin-message-box {
+    padding: 2rem;
+}
+
+.admin-cancel-reason-box {
+    background: #fee2e2;
+    padding: 0.8rem;
+    border-radius: 8px;
+}
+
+.admin-action-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+}
+
+.admin-accept-btn {
+    margin-right: 0.8rem;
+}
+
+.admin-processed-text {
+    font-weight: 500;
+}
+
+.admin-appointment-card {
+    padding: 2rem;
+}
+
+.admin-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-card-title {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.admin-status-badge {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.admin-time-text {
+    font-weight: 500;
+}
+
+.admin-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    font-size: 0.95rem;
+}
+
+.admin-details-box {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.admin-box-title {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.admin-detail-row {
+    color: var(--text-main);
+    margin-bottom: 0.3rem;
+}
+
+.admin-detail-row-last {
+    color: var(--text-main);
+}
+
+.admin-action-footer {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    text-align: right;
+}

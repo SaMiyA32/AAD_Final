@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Clear - Sign Up</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/signup.css">
+</head>
+
+<body>
+    <div class="blob-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar glassmorphism">
+        <div class="nav-brand">
+            <i class="fa-solid fa-sparkles text-gradient"></i> Crystal <span>Clear</span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <!-- Dynamically populated based on auth state by common.js -->
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app-root">
+        <section id="signup-view" class="view-section active" style="max-width: 550px; margin: 4rem auto;">
+            <div class="glassmorphism" style="padding: 3.5rem 3rem; position: relative; overflow: hidden;">
+                <!-- Decorative Accent -->
+                <div
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--accent-color), var(--primary-color), var(--primary-hover));">
+                </div>
+
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;">
+                        Join Us</h2>
+                    <p class="text-muted" style="margin-top: 0.5rem; font-size: 1.05rem;">Create your account to start
+                        booking premium cleaning services.</p>
+                </div>
+
+                <form id="register-form">
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="font-weight: 600; color: #4b5563; font-size: 0.95rem;">Full Name</label>
+                        <div style="position: relative;">
+                            <span
+                                style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"><i
+                                    class="far fa-user"></i></span>
+                            <input type="text" id="reg-name" class="form-control" placeholder="John Doe" required
+                                style="padding-left: 2.8rem;">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label style="font-weight: 600; color: #4b5563; font-size: 0.95rem;">Email Address</label>
+                        <div style="position: relative;">
+                            <span
+                                style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"><i
+                                    class="far fa-envelope"></i></span>
+                            <input type="email" id="reg-email" class="form-control" placeholder="name@example.com"
+                                required style="padding-left: 2.8rem;">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-weight: 600; color: #4b5563; font-size: 0.95rem;">Password</label>
+                            <div style="position: relative;">
+                                <span
+                                    style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"><i
+                                        class="fas fa-lock"></i></span>
+                                <input type="password" id="reg-password" class="form-control" placeholder="Create pass"
+                                    required style="padding-left: 2.8rem;">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-weight: 600; color: #4b5563; font-size: 0.95rem;">Confirm</label>
+                            <div style="position: relative;">
+                                <span
+                                    style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"><i
+                                        class="fas fa-shield-alt"></i></span>
+                                <input type="password" id="reg-confirm" class="form-control" placeholder="Verify pass"
+                                    required style="padding-left: 2.8rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="primary-btn"
+                        style="width: 100%; padding: 1rem; font-size: 1.1rem; letter-spacing: 0.5px; box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);">Create
+                        Account</button>
+                </form>
+
+                <div
+                    style="margin-top: 2.5rem; text-align: center; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                    <p class="text-muted" style="font-size: 0.95rem;">Already have an account? <a href="login.html"
+                            class="text-primary"
+                            style="font-weight: 700; white-space: nowrap; margin-left: 0.3rem;">Sign In</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast-container"></div>
+
+    <script src="../JS/api.js"></script>
+    <script src="../JS/common.js"></script>
+    <script src="../JS/signup.js"></script>
+</body>
+
+</html>

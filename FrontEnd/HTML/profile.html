@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Clear - Profile</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/profile.css">
+</head>
+
+<body>
+    <div class="blob-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar glassmorphism">
+        <div class="nav-brand">
+            <i class="fa-solid fa-sparkles text-gradient"></i> Crystal <span>Clear</span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <!-- Dynamically populated based on auth state by common.js -->
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app-root">
+        <section id="profile-view" class="view-section active">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2.2rem; font-weight: 700;">Profile Dashboard</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
+
+                <!-- Statistics & History -->
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    <div id="profile-stats" class="glassmorphism"
+                        style="padding: 2rem; display: flex; justify-content: space-around; text-align: center;">
+                        <!-- JS populated -->
+                    </div>
+
+                    <div class="glassmorphism" style="padding: 2rem; flex: 1; max-height: 500px; overflow-y: auto;">
+                        <h3 class="mb-4 border-bottom pb-3" style="font-size: 1.4rem;">Recent History</h3>
+                        <div id="profile-history"></div>
+                    </div>
+                </div>
+
+                <!-- Profile Form -->
+                <div class="glassmorphism" style="padding: 2.5rem;">
+                    <h3 class="mb-4 border-bottom pb-3" style="font-size: 1.4rem;">Personal Information</h3>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="prof-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="prof-email" class="form-control" disabled
+                                style="opacity: 0.6; cursor: not-allowed;">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="prof-phone" class="form-control" placeholder="e.g. +1 234 567 8900"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Home Address</label>
+                            <textarea id="prof-address" class="form-control" placeholder="Enter residential address"
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Workplace / Business Address</label>
+                            <textarea id="prof-workplace" class="form-control"
+                                placeholder="Enter work/office address (optional)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="prof-gender" class="form-control" required style="background-color: #f9fafb;">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="primary-btn"
+                            style="width: 100%; margin-top: 1.5rem; padding: 0.9rem;">Update Profile Settings</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast-container"></div>
+
+    <script src="../JS/api.js"></script>
+    <script src="../JS/common.js"></script>
+    <script src="../JS/profile.js"></script>
+</body>
+
+</html>

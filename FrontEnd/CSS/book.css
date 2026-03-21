@@ -1,0 +1,37 @@
+/* Book page specific CSS */
+.incomplete-profile-card {
+    padding: 3rem;
+    max-width: 500px;
+    margin: 4rem auto;
+}
+
+.incomplete-profile-icon {
+    font-size: 3rem;
+}
+
+.booking-card {
+    max-width: 650px;
+    margin: 2rem auto;
+    padding: 3rem 2.5rem;
+}
+
+.booking-title {
+    font-size: 2rem;
+}
+
+.book-input-gray {
+    background-color: #f9fafb;
+}
+
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.booking-submit-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+}

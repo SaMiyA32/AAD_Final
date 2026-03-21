@@ -1,0 +1,55 @@
+/* Dashboard CSS */
+.dashboard-message-box {
+    padding: 2rem;
+}
+
+.rate-service-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.rated-status-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.appointment-card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.appointment-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.appointment-card-title {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.appointment-details {
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.detail-icon {
+    width: 20px;
+}
+
+.appointment-action-footer {
+    margin-top: 1rem;
+    text-align: right;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
