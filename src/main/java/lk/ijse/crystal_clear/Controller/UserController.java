@@ -17,24 +17,11 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/auth/register")
-    public ResponseEntity<APIResponse> registerUser(@RequestBody UserDTO dto) {
-        boolean isSaved = userService.saveUser(dto);
-        APIResponse response = new APIResponse(201, "Registration Successful!", isSaved);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
 
-
-    @PostMapping("/auth/login")
-    public ResponseEntity<APIResponse> loginUser(@RequestBody UserDTO loginDto) {
-        UserDTO verifiedUser = userService.verifyUser(loginDto.getUserEmail(), loginDto.getUserPassword());
-        APIResponse response = new APIResponse(200, "Login Successful!", verifiedUser);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
 
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<APIResponse> updateUser(@PathVariable Long id, @RequestBody UserDTO dto) {
+    public ResponseEntity<APIResponse> updateUser(@PathVariable("id") Long id, @RequestBody UserDTO dto) {
         dto.setUserId(id);
         UserDTO updatedUser = userService.updateUser(dto);
         APIResponse response = new APIResponse(200, "Profile Updated!", updatedUser);

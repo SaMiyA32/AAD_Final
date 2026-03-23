@@ -26,7 +26,7 @@ public class AppointmentDTO {
 
     private Long userId;
     private String userName;
-    private String userPhone;
+    private String userMobileNumber;
 
 
 }

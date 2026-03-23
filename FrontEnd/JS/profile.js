@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let userAppointments = [];
     try {
-        userAppointments = await API.get(`/appointments/user/${user.userId}`) || [];
+        const res = await API.get(`/appointments/user/${user.userId}`);
+        userAppointments = res.data || [];
     } catch (e) { }
 
     const completedApts = userAppointments.filter(a => a.aStatus === 'Completed');
 
-    // Populate stats
     document.getElementById('profile-stats').innerHTML = `
         <div class="stat-box">
             <h3 class="text-primary stat-number">${userAppointments.length}</h3>
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (userAppointments.length === 0) {
         historyHtml = '<p class="text-muted empty-history-msg">No order history yet.</p>';
     } else {
-        historyHtml = userAppointments.slice(0, 5).map(apt => `
+        historyHtml = userAppointments.reverse().slice(0, 5).map(apt => `
             <div class="history-item">
                 <div class="history-item-header">
                     <strong class="history-service-name">${apt.aService}</strong> 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
              const response = await API.put(`/users/${user.userId}`, updatedData);
 
-             const updatedUser = response.user || response;
+             const updatedUser = response.data || response;
 
              AppState.currentUser = { ...AppState.currentUser, ...updatedUser };
             localStorage.setItem('currentUser', JSON.stringify(AppState.currentUser));

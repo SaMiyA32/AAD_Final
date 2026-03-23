@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     userPassword: password
                 });
 
-                 const userObj = response.data || response;
-                const token = null;
+                 const userObj = response.data.user || response.data;
+                const token = response.data.token || null;
 
                 AppState.login(userObj, token);
 

@@ -6,7 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.core.AuthenticationException;
+
 @ControllerAdvice
+@CrossOrigin
 public class GlobalExceptionHandler {
     
     @ExceptionHandler(CustomException.class)
@@ -16,6 +20,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.valueOf(ex.getStatusCode()));
     }
 
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<APIResponse> handleAuthenticationException(AuthenticationException ex) {
+        APIResponse response = new APIResponse(401, "Invalid email or password", null);
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<APIResponse> handleGlobalException(Exception ex) {

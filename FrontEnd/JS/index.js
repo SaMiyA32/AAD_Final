@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
      const ratingsContainer = document.getElementById('ratings-container');
     let ratings = [];
     try {
-        ratings = await API.get('/ratings');
+        const res = await API.get('/ratings');
+        ratings = res.data || [];
     } catch (e) {
         console.warn('Could not fetch ratings, using empty list.');
     }

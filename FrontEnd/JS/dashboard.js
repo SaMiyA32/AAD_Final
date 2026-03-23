@@ -12,14 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
         listContainer.innerHTML = '<div class="glassmorphism text-center dashboard-message-box"><i class="fas fa-spinner fa-spin fa-2x text-primary"></i></div>';
 
         try {
-            let userAppointments = await API.get(`/appointments/user/${user.userId}`);
+            const res = await API.get(`/appointments/user/${user.userId}`);
+            let userAppointments = res.data || [];
 
             let appointmentsHtml = '';
 
             if (!userAppointments || userAppointments.length === 0) {
                 appointmentsHtml = '<div class="glassmorphism text-center dashboard-message-box"><p class="text-muted">You have no booking history.</p><button onclick="window.location.href=\'book.html\'" class="primary-btn mt-3">Book Now</button></div>';
             } else {
-                userAppointments.forEach(apt => {
+                userAppointments.reverse().forEach(apt => {
                     let badgeClass = 'badge-pending';
                     if (apt.aStatus === 'Accepted') badgeClass = 'badge-accepted';
                     if (apt.aStatus === 'Cancelled') badgeClass = 'badge-cancelled';

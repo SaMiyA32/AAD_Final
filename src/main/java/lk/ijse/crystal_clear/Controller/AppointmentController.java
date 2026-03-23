@@ -27,7 +27,7 @@ public class AppointmentController {
     }
 
      @GetMapping("/user/{userId}")
-    public ResponseEntity<APIResponse> getUserAppointments(@PathVariable Long userId) {
+    public ResponseEntity<APIResponse> getUserAppointments(@PathVariable("userId") Long userId) {
         List<AppointmentDTO> list = appointmentService.getUserAppointments(userId);
         APIResponse response = new APIResponse(200, "User Appointments Loaded", list);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -41,15 +41,14 @@ public class AppointmentController {
     }
 
      @PutMapping("/{id}/accept")
-    public ResponseEntity<APIResponse> acceptAppointment(@PathVariable Long id) {
+    public ResponseEntity<APIResponse> acceptAppointment(@PathVariable("id") Long id) {
         boolean isAccepted = appointmentService.acceptAppointment(id);
         APIResponse response = new APIResponse(200, "Appointment Accepted!", isAccepted);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
      @PutMapping("/{id}/cancel")
-    public ResponseEntity<APIResponse> cancelAppointment(@PathVariable Long id, @RequestBody Map<String, String> body) {
-        // Frontend එකෙන් එවන්නේ { "aCancelReason": "හේතුව" } විදිහට නිසා අපි Map එකක් පාවිච්චි කරනවා
+    public ResponseEntity<APIResponse> cancelAppointment(@PathVariable("id") Long id, @RequestBody Map<String, String> body) {
         String cancelReason = body.get("aCancelReason");
         boolean isCancelled = appointmentService.cancelAppointment(id, cancelReason);
         APIResponse response = new APIResponse(200, "Appointment Cancelled!", isCancelled);

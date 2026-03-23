@@ -8,13 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
         listContainer.innerHTML = '<div class="glassmorphism text-center admin-message-box"><i class="fas fa-spinner fa-spin fa-2x text-primary"></i></div>';
 
         try {
-            const allAppointments = await API.get('/appointments');
+            const res = await API.get('/appointments');
+            const allAppointments = res.data || [];
             let appointmentsHtml = '';
 
             if (!allAppointments || allAppointments.length === 0) {
                 appointmentsHtml = '<div class="glassmorphism text-center admin-message-box"><p class="text-muted">No appointments found.</p></div>';
             } else {
-                allAppointments.forEach(apt => {
+                allAppointments.reverse().forEach(apt => {
                     let badgeClass = 'badge-pending';
                     if (apt.aStatus === 'Accepted') badgeClass = 'badge-accepted';
                     if (apt.aStatus === 'Cancelled') badgeClass = 'badge-cancelled';
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="admin-details-box">
                             <strong class="text-primary admin-box-title"><i class="far fa-user"></i> User Details</strong>
                             <div class="admin-detail-row"><strong>Name:</strong> ${apt.userName}</div>
-                            <div class="admin-detail-row-last"><strong>Phone:</strong> ${apt.userPhone || 'N/A'}</div>
+                            <div class="admin-detail-row-last"><strong>Phone:</strong> ${apt.userMobileNumber || 'N/A'}</div>
                         </div>
                         <div class="admin-details-box">
                             <strong class="text-primary admin-box-title"><i class="fas fa-clipboard-list"></i> Service Details</strong>
