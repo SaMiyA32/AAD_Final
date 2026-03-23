@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 
 public class UserDTO {
 
-    private long userId;
+    private Long userId;
     private String userName;
     private String userEmail;
-    private String uPassword;
+    private String userPassword;
     private String userMobileNumber;
     private String userAddress;
     private String userWorkplace;
     private String userGender;
-    private boolean  userprofileCompleted;
+    private Boolean userprofileCompleted;
     private String userRole;
 
 

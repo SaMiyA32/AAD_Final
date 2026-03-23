@@ -13,16 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             try {
-                // Adjust this payload based on your Spring Boot DTO (e.g., LoginRequest)
-                const response = await API.post('/auth/login', {
-                    email: email,
-                    password: password
+                 const response = await API.post('/auth/login', {
+                    userEmail: email,
+                    userPassword: password
                 });
 
-                // Assuming response returns { user: {...}, token: "..." }
-                // Adjust based on your actual backend response structure
-                const userObj = response.user || response;
-                const token = response.token || null;
+                 const userObj = response.data || response;
+                const token = null;
 
                 AppState.login(userObj, token);
 

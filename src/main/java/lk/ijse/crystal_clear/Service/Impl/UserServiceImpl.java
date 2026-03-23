@@ -61,4 +61,24 @@ public class UserServiceImpl implements UserService {
             throw new CustomException("User ID not found!", 404);
         }
     }
+
+    @Override
+    public UserDTO updateUser(UserDTO userDTO) {
+        Optional<User> optionalUser = userRepo.findById(userDTO.getUserId());
+        if (optionalUser.isPresent()) {
+            User existingUser = optionalUser.get();
+            
+            if(userDTO.getUserName() != null) existingUser.setUserName(userDTO.getUserName());
+            if(userDTO.getUserMobileNumber() != null) existingUser.setUserMobileNumber(userDTO.getUserMobileNumber());
+            if(userDTO.getUserAddress() != null) existingUser.setUserAddress(userDTO.getUserAddress());
+            if(userDTO.getUserWorkplace() != null) existingUser.setUserWorkplace(userDTO.getUserWorkplace());
+            if(userDTO.getUserGender() != null) existingUser.setUserGender(userDTO.getUserGender());
+            if(userDTO.getUserprofileCompleted() != null) existingUser.setUserprofileCompleted(userDTO.getUserprofileCompleted());
+            
+            userRepo.save(existingUser);
+            return modelMapper.map(existingUser, UserDTO.class);
+        } else {
+            throw new CustomException("User not found!", 404);
+        }
+    }
 }

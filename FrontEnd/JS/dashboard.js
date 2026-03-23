@@ -2,12 +2,9 @@ let currentRatingAptId = null;
 let currentRatingVal = 5;
 
 document.addEventListener('DOMContentLoaded', () => {
-    const user = AppState.currentUser || {
-        userId: 999,
-        userName: "Design Viewer"
-    };
-    // Safe check since userName might be undefined if not logged in properly
-    const welcomeName = user.userName ? user.userName.split(' ')[0] : 'User';
+    const user = AppState.currentUser;
+    if(!user) return;
+     const welcomeName = user.userName ? user.userName.split(' ')[0] : 'User';
     document.getElementById('dashboard-title').innerText = `Welcome, ${welcomeName}`;
 
     async function renderAppointments() {
@@ -15,16 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         listContainer.innerHTML = '<div class="glassmorphism text-center dashboard-message-box"><i class="fas fa-spinner fa-spin fa-2x text-primary"></i></div>';
 
         try {
-            let userAppointments = [];
-            if (user.userId === 999) {
-                userAppointments = [
-                    { aId: '1', aService: 'House Cleaning', aDate: '2026-03-20', aTime: '10:00', aAddress: '123 Main St', aStatus: 'Pending' },
-                    { aId: '2', aService: 'Business Cleaning', aDate: '2026-03-15', aTime: '14:00', aAddress: '456 Office Ave', aStatus: 'Completed', rRating: 5 },
-                    { aId: '3', aService: 'Floor Special Care', aDate: '2026-03-10', aTime: '09:00', aAddress: '123 Main St', aStatus: 'Accepted' }
-                ];
-            } else {
-                userAppointments = await API.get(`/appointments/user/${user.userId}`);
-            }
+            let userAppointments = await API.get(`/appointments/user/${user.userId}`);
 
             let appointmentsHtml = '';
 

@@ -1,26 +1,10 @@
-// Store object removed - Data is now handled via API.js. 
-// localStorage is only used to store the authentication token and minimal user context 
-// (e.g., AppState.currentUser) to keep the user logged in across page reloads.
-
-// Application State
 const AppState = {
-    currentUser: JSON.parse(localStorage.getItem('currentUser')) || {
-        userId: 999,
-        userName: "Design Viewer",
-        userEmail: "viewer@example.com",
-        userprofileCompleted: true,
-        userAddress: "123 Main St",
-        userWorkplace: "Office Building",
-        userRole: "USER"
-    },
+    currentUser: JSON.parse(localStorage.getItem('currentUser')),
     isAdmin: false,
 
-    // Called after successful login/registration API response
-    login(user, token) {
+     login(user, token) {
         this.currentUser = user;
-        // Adjust this depending on how your Spring Boot API identifies admins
-        // E.g., user.userRole === 'ADMIN' or user.isAdmin
-        this.isAdmin = user.userEmail === 'spasan42@gmail.com' || user.userRole === 'ADMIN' || user.isAdmin === true;
+         this.isAdmin = user.userEmail === 'spasan42@gmail.com' || user.userRole === 'ADMIN' || user.isAdmin === true;
 
         localStorage.setItem('currentUser', JSON.stringify(user));
         if (token) {
@@ -41,14 +25,12 @@ const AppState = {
     }
 };
 
-// Initial admin check on load
-if (AppState.currentUser) {
+ if (AppState.currentUser) {
     const user = AppState.currentUser;
     AppState.isAdmin = user.userEmail === 'spasan42@gmail.com' || user.userRole === 'ADMIN' || user.isAdmin === true;
 }
 
-// UI Utilities
-window.UI = {
+ window.UI = {
     showToast(message, type = 'success') {
         let container = document.getElementById('toast-container');
         if (!container) {
@@ -77,8 +59,7 @@ window.UI = {
     }
 };
 
-// Mobile Nav Toggle
-const navSlide = () => {
+ const navSlide = () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
 
@@ -88,8 +69,7 @@ const navSlide = () => {
             burger.classList.toggle('toggle');
         });
 
-        // Close nav when clicking a link
-        nav.addEventListener('click', (e) => {
+         nav.addEventListener('click', (e) => {
             if (e.target.tagName === 'A') {
                 nav.classList.remove('nav-active');
                 burger.classList.remove('toggle');
@@ -137,11 +117,7 @@ function updateNav() {
     }
 }
 
-// Protected Route Checks
-function checkAuth() {
-    // තාවකාලිකව security check එක අක්‍රිය කරලා තියෙන්නේ ඔයාට pages view කරන්න පුළුවන් වෙන්න
-    return true;
-
+ function checkAuth() {
     const path = window.location.pathname;
     const page = path.split('/').pop() || 'index.html';
 
@@ -176,8 +152,7 @@ function checkAuth() {
     return true;
 }
 
-// Initialize on page load
-window.addEventListener('load', () => {
+ window.addEventListener('load', () => {
     if (checkAuth()) {
         updateNav();
         navSlide();

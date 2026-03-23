@@ -1,14 +1,12 @@
 const API_BASE_URL = 'http://localhost:8080/api'; // Update this to match your Spring Boot backend URL
 
-// Common Headers for all requests
-function getHeaders() {
+ function getHeaders() {
     const headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
     };
 
-    // If using JWT or Token based auth, add it here
-    const token = localStorage.getItem('authToken');
+     const token = localStorage.getItem('authToken');
     if (token) {
         headers['Authorization'] = `Bearer ${token}`;
     }
@@ -16,8 +14,7 @@ function getHeaders() {
     return headers;
 }
 
-// Handle API responses centrally
-async function handleResponse(response) {
+ async function handleResponse(response) {
     if (!response.ok) {
         let errorMsg = 'An error occurred';
         try {
@@ -29,16 +26,14 @@ async function handleResponse(response) {
         throw new Error(errorMsg);
     }
 
-    // Some endpoints (like delete) might not return JSON
-    const contentType = response.headers.get('content-type');
+     const contentType = response.headers.get('content-type');
     if (contentType && contentType.includes('application/json')) {
         return await response.json();
     }
     return null;
 }
 
-// The generic API client
-const API = {
+ const API = {
     async get(endpoint) {
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {

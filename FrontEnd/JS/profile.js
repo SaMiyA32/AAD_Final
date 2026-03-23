@@ -1,26 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = AppState.currentUser || {
-        userId: 999,
-        userName: "Design Viewer",
-        userEmail: "viewer@example.com",
-        userMobileNumber: "0771234567",
-        userAddress: "123 Galle Road",
-        userWorkplace: "Colombo",
-        userGender: "Male"
-    };
+    const user = AppState.currentUser;
+    if(!user) return;
 
     let userAppointments = [];
-    if (user.userId === 999) {
-        userAppointments = [
-            { aId: '1', aService: 'House Cleaning', aDate: '2026-03-20', aTime: '10:00', aAddress: '123 Main St', aStatus: 'Pending' },
-            { aId: '2', aService: 'Business Cleaning', aDate: '2026-03-15', aTime: '14:00', aAddress: '456 Office Ave', aStatus: 'Completed', rRating: 5 },
-            { aId: '3', aService: 'Floor Special Care', aDate: '2026-03-10', aTime: '09:00', aAddress: '123 Main St', aStatus: 'Accepted' }
-        ];
-    } else {
-        try {
-            userAppointments = await API.get(`/appointments/user/${user.userId}`) || [];
-        } catch (e) { }
-    }
+    try {
+        userAppointments = await API.get(`/appointments/user/${user.userId}`) || [];
+    } catch (e) { }
 
     const completedApts = userAppointments.filter(a => a.aStatus === 'Completed');
 
@@ -37,8 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
     `;
 
-    // Populate history
-    let historyHtml = '';
+     let historyHtml = '';
     if (userAppointments.length === 0) {
         historyHtml = '<p class="text-muted empty-history-msg">No order history yet.</p>';
     } else {
@@ -54,8 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     document.getElementById('profile-history').innerHTML = historyHtml;
 
-    // Populate form
-    document.getElementById('prof-name').value = user.userName || '';
+     document.getElementById('prof-name').value = user.userName || '';
     document.getElementById('prof-email').value = user.userEmail || '';
     document.getElementById('prof-phone').value = user.userMobileNumber || '';
     document.getElementById('prof-address').value = user.userAddress || '';
@@ -64,8 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('prof-gender').value = user.userGender;
     }
 
-    // Form submit
-    const form = document.getElementById('profile-form');
+     const form = document.getElementById('profile-form');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -84,14 +66,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         try {
-            // Update via API
-            const response = await API.put(`/users/${user.userId}`, updatedData);
+             const response = await API.put(`/users/${user.userId}`, updatedData);
 
-            // Assume response returns the complete updated user object
-            const updatedUser = response.user || response;
+             const updatedUser = response.user || response;
 
-            // Update AppState
-            AppState.currentUser = { ...AppState.currentUser, ...updatedUser };
+             AppState.currentUser = { ...AppState.currentUser, ...updatedUser };
             localStorage.setItem('currentUser', JSON.stringify(AppState.currentUser));
 
             UI.showToast('Profile updated successfully!', 'success');

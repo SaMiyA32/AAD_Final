@@ -20,24 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             const payload = {
-                name,
-                email,
-                password,
-                profileCompleted: false
+                userName: name,
+                userEmail: email,
+                userPassword: password,
+                userprofileCompleted: false
             };
 
             try {
-                // Adjust this endpoint and response parsing based on your backend
-                const response = await API.post('/auth/register', payload);
-
-                // If the backend returns the user object + token
-                const userObj = response.user || response;
-                const token = response.token || null;
-
-                UI.showToast('Registration successful', 'success');
-
-                // Auto login
-                AppState.login(userObj, token);
+                 await API.post('/auth/register', payload);
+                 UI.showToast('Registration successful! Redirecting to Login...', 'success');
+                 setTimeout(() => {
+                     window.location.href = 'login.html';
+                 }, 2000);
 
             } catch (error) {
                 UI.showToast(error.message || 'Registration failed', 'error');

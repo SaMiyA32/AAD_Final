@@ -1,14 +1,12 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Generate CTA buttons based on auth state
-    const ctaContainer = document.getElementById('home-cta-container');
+     const ctaContainer = document.getElementById('home-cta-container');
     if (AppState.currentUser) {
         ctaContainer.innerHTML = '<a href="book.html" class="primary-btn cta-large-btn">Book Now</a>';
     } else {
         ctaContainer.innerHTML = '<a href="login.html" class="primary-btn cta-large-btn">Get Started</a>';
     }
 
-    // Generate Ratings
-    const ratingsContainer = document.getElementById('ratings-container');
+     const ratingsContainer = document.getElementById('ratings-container');
     let ratings = [];
     try {
         ratings = await API.get('/ratings');
@@ -28,8 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 stars += `<i class="fa-solid fa-star ${i <= r.rRating ? 'text-warning' : 'text-muted'}"></i>`;
             }
 
-            // Fix date format string based on r.rDate which could be an ISO string
-            let dateStr = r.rDate;
+             let dateStr = r.rDate;
             try {
                 dateStr = new Date(r.rDate).toLocaleDateString();
             } catch (e) { }

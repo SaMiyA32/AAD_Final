@@ -1,14 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const user = AppState.currentUser || {
-        userId: 999,
-        userName: "Design Viewer",
-        userprofileCompleted: true,
-        userAddress: "123 Main St",
-        userWorkplace: "Office"
-    };
+    const user = AppState.currentUser;
+    if(!user) return;
     const container = document.getElementById('book-content-container');
 
-    if (!user.userprofileCompleted) {
+    if (!user.userAddress || user.userAddress.trim() === '') {
         container.innerHTML = `
             <div class="glassmorphism text-center incomplete-profile-card">
                 <i class="fa-solid fa-user-pen text-warning mb-3 incomplete-profile-icon"></i>
@@ -65,8 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 
-    // Handle address selection changes
-    const addrSelect = document.getElementById('book-address-select');
+     const addrSelect = document.getElementById('book-address-select');
     const addrText = document.getElementById('book-address');
     if (addrSelect && addrText) {
         addrSelect.addEventListener('change', (e) => {
@@ -82,8 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 addrText.focus();
             }
         });
-        // initial state
-        addrText.readOnly = true;
+         addrText.readOnly = true;
     }
 
     const form = document.getElementById('book-form');
