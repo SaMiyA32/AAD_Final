@@ -56,6 +56,18 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public List<RatingDTO> getAllRatings() {
         List<Rating> allRatings = ratingRepo.findAll();
-        return modelMapper.map(allRatings, new TypeToken<List<RatingDTO>>() {}.getType());
+        List<RatingDTO> dtos = modelMapper.map(allRatings, new TypeToken<List<RatingDTO>>() {}.getType());
+        for (int i = 0; i < allRatings.size(); i++) {
+            Rating r = allRatings.get(i);
+            if (r.getUser() != null) {
+                dtos.get(i).setUserId(r.getUser().getUserId());
+                dtos.get(i).setUserName(r.getUser().getUserName());
+            }
+            if (r.getAppointment() != null) {
+                dtos.get(i).setAptId(r.getAppointment().getAId());
+                dtos.get(i).setServiceType(r.getAppointment().getAService());
+            }
+        }
+        return dtos;
     }
 }

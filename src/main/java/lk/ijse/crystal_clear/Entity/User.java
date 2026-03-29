@@ -22,6 +22,10 @@ public class User implements UserDetails {
 
     private String userName;
 
+    public String getUserName() {
+        return this.userName;
+    }
+
     @Column(unique = true)
     private String userEmail;
 

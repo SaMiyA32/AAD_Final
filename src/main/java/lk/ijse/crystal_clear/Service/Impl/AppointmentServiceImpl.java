@@ -7,6 +7,7 @@ import lk.ijse.crystal_clear.Exception.CustomException;
 import lk.ijse.crystal_clear.Repo.AppointmentRepo;
 import lk.ijse.crystal_clear.Repo.UserRepo;
 import lk.ijse.crystal_clear.Service.custom.AppointmentService;
+import lk.ijse.crystal_clear.Service.custom.EmailService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public boolean saveAppointment(AppointmentDTO dto) {
         Optional<User> userOptional = userRepo.findById(dto.getUserId());
@@ -50,13 +54,31 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<AppointmentDTO> getUserAppointments(Long userId) {
         List<Appointment> userAppointments = appointmentRepo.findByUser_UserId(userId);
 
-        return modelMapper.map(userAppointments, new TypeToken<List<AppointmentDTO>>() {}.getType());
+        List<AppointmentDTO> dtos = modelMapper.map(userAppointments, new TypeToken<List<AppointmentDTO>>() {}.getType());
+        for (int i = 0; i < userAppointments.size(); i++) {
+            User u = userAppointments.get(i).getUser();
+            if (u != null) {
+                dtos.get(i).setUserId(u.getUserId());
+                dtos.get(i).setUserName(u.getUserName());
+                dtos.get(i).setUserMobileNumber(u.getUserMobileNumber());
+            }
+        }
+        return dtos;
     }
 
     @Override
     public List<AppointmentDTO> getAllAppointments() {
         List<Appointment> allAppointments = appointmentRepo.findAll();
-        return modelMapper.map(allAppointments, new TypeToken<List<AppointmentDTO>>() {}.getType());
+        List<AppointmentDTO> dtos = modelMapper.map(allAppointments, new TypeToken<List<AppointmentDTO>>() {}.getType());
+        for (int i = 0; i < allAppointments.size(); i++) {
+            User u = allAppointments.get(i).getUser();
+            if (u != null) {
+                dtos.get(i).setUserId(u.getUserId());
+                dtos.get(i).setUserName(u.getUserName());
+                dtos.get(i).setUserMobileNumber(u.getUserMobileNumber());
+            }
+        }
+        return dtos;
     }
 
     @Override
@@ -67,6 +89,19 @@ public class AppointmentServiceImpl implements AppointmentService {
             Appointment appointment = optionalAppointment.get();
             appointment.setAStatus("Accepted");
             appointmentRepo.save(appointment);
+            
+            // Send email notification
+            User user = appointment.getUser();
+            if (user != null && user.getUserEmail() != null) {
+                emailService.sendAppointmentAcceptedEmail(
+                        user.getUserEmail(),
+                        user.getUserName(),
+                        appointment.getADate(),
+                        appointment.getATime(),
+                        appointment.getAAddress()
+                );
+            }
+            
             return true;
         } else {
             throw new CustomException("Cannot accept: Appointment not found!", 404);
@@ -82,6 +117,17 @@ public class AppointmentServiceImpl implements AppointmentService {
             appointment.setAStatus("Cancelled");
             appointment.setACancelReason(cancelReason);
             appointmentRepo.save(appointment);
+            
+            // Send email notification
+            User user = appointment.getUser();
+            if (user != null && user.getUserEmail() != null) {
+                emailService.sendAppointmentCanceledEmail(
+                        user.getUserEmail(),
+                        user.getUserName(),
+                        cancelReason
+                );
+            }
+            
             return true;
         } else {
             throw new CustomException("Cannot cancel: Appointment not found!", 404);

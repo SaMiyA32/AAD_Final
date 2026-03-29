@@ -55,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
 
         String token = jwtUtil.generateToken(user.getUserEmail());
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        userDTO.setUserName(user.getUserName());
 
         return new AuthResponseDTO(token, userDTO);
     }
